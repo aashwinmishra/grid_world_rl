@@ -5,6 +5,15 @@ from grid_world.environment import GridWorld
 def value_iteration(grid_world, 
                     gamma: float=0.9, 
                     theta: float=1e-10):
+  """
+  Performs Value Iteration for solving the Grid World problem.
+  Parameters:
+    grid_world: an instance of the GridWorld class defining the problem.
+    gamma: discount factor for the returns.
+    theta: minimum threshold to stop Value Iteration.
+  Returns:
+    Tuple (V, P) for the state values and the deterministi policy for the grid.
+  """
   Vk = np.zeros((grid_world.height, grid_world.width))
   Q = np.zeros((grid_world.height, grid_world.width, len(grid_world.actions)))
   P = np.zeros((grid_world.height, grid_world.width))
