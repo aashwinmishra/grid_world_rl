@@ -3,6 +3,14 @@ from .environment import GridWorld
 
 
 def show_values(grid_world, V):
+  """
+  Renders a basic visualization of the state values for every position.
+  Parameters:
+    grid_world: An instance of the GridWorld class.
+    V: Corresponding state values.
+  Returns:
+    None
+  """
   n_rows, n_cols = grid_world.height, grid_world.width
   for i in range(n_rows):
     row = "|"
@@ -12,6 +20,14 @@ def show_values(grid_world, V):
 
 
 def show_policy(grid_world, policy):
+  """
+  Renders a basic visualization of the given policy for every position.
+  Parameters:
+    grid_world: An instance of the GridWorld class.
+    policy: Corresponding deterministic policy.
+  Returns:
+    None
+  """
   action_symbols = {"up": "\u2191",
                     "down": "\u2193",
                     "right": "\u2192",
