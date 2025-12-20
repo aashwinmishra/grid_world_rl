@@ -13,6 +13,7 @@ class GridWorld:
     terminal: List of tuples defining terminal states on the grid.
     walls: List of tuples defining walls/forbidden states.
     slip_prob: probability of slipping perpendicular to the designated path.
+    step_cost: Cost of each step (negative reward).
   """
   def __init__(self, 
                size: tuple=(5,5),
@@ -27,7 +28,6 @@ class GridWorld:
     self.grid = np.zeros((self.height, self.width))
     self.actions = ["up", "down", "left", "right"]
     self.rewards = rewards 
-    self.initial = initial 
     self.terminal = terminal
     self.walls = walls
     self.slip_prob = slip_prob
@@ -41,10 +41,10 @@ class GridWorld:
                         "left": (0, -1),
                         "right": (0, 1)
                         }
-    if state in self.terminal: #This part makes the move for nno-terminal states only.
+    if state in self.terminal: #This part makes the move for non-terminal states only.
       return state, 0
     new_state = state[0] + numerical_action[action][0], state[1] + numerical_action[action][1]
-    if not (0 <= new_state[0] < self.height and 0 <= new_state[1] < self.width) or new_state in self.walls: #Moving beyond the grid 
+    if not (0 <= new_state[0] < self.height and 0 <= new_state[1] < self.width) or new_state in self.walls:  
       return state, self.step_cost
     return new_state, self.step_cost
 
@@ -61,7 +61,7 @@ class GridWorld:
       answer.append((prob, new_state, reward))
     return answer
 
-  def get_valid_states(self):
+  def get_valid_states(self)->list:
     states = []
     for i in range(self.height):
       for j in range(self.width): 
