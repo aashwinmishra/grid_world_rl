@@ -16,14 +16,23 @@ class GridWorld:
     step_cost: Cost of each step (negative reward).
   """
   def __init__(self, 
-               size: tuple=(5,5),
-               initial: tuple=(1,1),
-               terminal: tuple=[(5,5)],
-               rewards: list = [0],
-               walls: list = [],
+               size: tuple=(3, 4),
+               terminal: list=[(0, 3), (1, 3)],
+               rewards: np.array = np.array([0]),
+               walls: list = [(1,1],
                step_cost: float=-0.02,
                slip_prob: float=0.05
                ):
+    """
+    Initializes an instance of the GridWorld class.
+    Args:
+      size: Tuple of (height: int, width: int) defining the enviornment.
+      terminal: List of tuples denoting the terminal states.
+      rewards: Numpy array of same shape as grid, defining rewards at each state.
+      walls: List of tuples defining where the walls/forbidden states are.
+      step_cost: Cost (negative reward) for each move.
+      slip_prob: Probability of slipping alonng each perpendicular direction while moving.
+    """
     self.height, self.width = size 
     self.grid = np.zeros((self.height, self.width))
     self.actions = ["up", "down", "left", "right"]
