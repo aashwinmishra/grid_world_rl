@@ -70,6 +70,19 @@ class GridWorld:
       answer.append((prob, new_state, reward))
     return answer
 
+    def sample(self, 
+             state: tuple, 
+             action: str)->tuple:
+    """
+    Samples a step starting from a given state and action.
+    Returns a tuple of the new state and the reward.
+    """
+    choices = self.get_transition_probs(state, action)
+    state_probs, new_states, rewards = map(list, zip(*choices))
+    idx = np.random.choice([0, 1, 2], p=state_probs)
+    new_state, reward = new_states[idx], rewards[idx]
+    return new_state, reward
+
   def get_valid_states(self)->list:
     states = []
     for i in range(self.height):
