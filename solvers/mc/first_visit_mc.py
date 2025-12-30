@@ -16,6 +16,29 @@ def generate_episode(grid_world,
   return episode, state
 
 
+def generate_episode_epsilon(grid_world, 
+                     state, 
+                     action, 
+                     policy, 
+                     length: int=10,
+                     epsilon: float=0.5)->list:
+  episode = []
+  N = len(grid_world.actions)
+  p = epsilon / N
+  pstar = 1 - epsilon * (N - 1)/N
+  for i in range(length):
+    if state in grid_world.terminal:
+      break
+    new_state, reward = grid_world.sample(state, action)
+    episode.append((state, action, reward))
+    state = new_state
+    a_star = policy[state]
+    probs = [p for _ in grid_world.actions]
+    probs[grid_world.actions.index(a_star)] = pstar
+    action = np.random.choice(grid_world.actions, p=probs)
+  return episode, state
+
+
 def FirstVisit_Q_tables(grid_world, 
                             policy, 
                             Q_table, 
