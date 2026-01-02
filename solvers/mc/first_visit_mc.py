@@ -5,7 +5,19 @@ def generate_episode(grid_world,
                      state, 
                      action, 
                      policy, 
-                     length: int=10)->list:
+                     length: int=10)->tuple:
+  """
+  Generates an episode over grid_world using policy.
+  Args:
+    grid_world: Instance of GridWorld class.
+    state: Initial location of agent on grid.
+    action: Selected action at this location.
+    policy: Policy to be adhered to henceforth.
+    length: Maximum length of the episode.
+  Returns:
+    episode-list of tuples of state, actionn reward,
+    final_state.
+  """
   episode = []
   for i in range(length):
     if state in grid_world.terminal:
@@ -21,7 +33,20 @@ def generate_episode_epsilon(grid_world,
                      action, 
                      policy, 
                      length: int=10,
-                     epsilon: float=0.5)->list:
+                     epsilon: float=0.5)->tuple:
+    """
+  Generates an episode over grid_world using (soft) policy.
+  Args:
+    grid_world: Instance of GridWorld class.
+    state: Initial location of agent on grid.
+    action: Selected action at this location.
+    policy: Policy to be adhered to henceforth.
+    length: Maximum length of the episode.
+    epsilon: parameter for epsilon-greedy algorithm.
+  Returns:
+    episode-list of tuples of state, actionn reward,
+    final_state.
+  """
   episode = []
   N = len(grid_world.actions)
   p = epsilon / N
