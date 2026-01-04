@@ -81,6 +81,8 @@ class GridWorld:
     state_probs, new_states, rewards = map(list, zip(*choices))
     idx = np.random.choice([0, 1, 2], p=state_probs)
     new_state, reward = new_states[idx], rewards[idx]
+    if new_state in self.terminal:
+      reward += self.rewards[new_state]
     return new_state, reward
 
   def get_valid_states(self)->list:
